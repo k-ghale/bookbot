@@ -1,18 +1,28 @@
-from stats import read_books_text
+import sys
+
 from stats import num_of_each_character
+from stats import read_books_text
 from stats import chars_dict_to_sorted_list
+
+
 
 def get_books_text(path):
     with open(path) as f:
         return f.read()
 
 def main():
-    path="./books/frankenstein.txt"
+    if len(sys.argv) < 2:
+        print("Usage: python3 main.py <path_to_book>")
+        sys.exit(1)
+    path = sys.argv[1]
+
+    #path="./books/frankenstein.txt"
     book_content= get_books_text(path);
     words = read_books_text(book_content);
     characters = num_of_each_character(book_content);
     sorted = chars_dict_to_sorted_list(characters)
     print_report(path, words, sorted)
+
 
 def print_report(book_path, num_words, chars_sorted_list):
     print("============ BOOKBOT ============")
